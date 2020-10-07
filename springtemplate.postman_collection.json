@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "312473f4-ddd2-4896-b06d-c52d60fb6ed3",
+		"name": "springtemplate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sign in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d26f3160-4c60-4a72-b791-6f26dd9fbc33",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken);\r",
+							"postman.setEnvironmentVariable(\"tokenType\", jsonData.tokenType);\r",
+							"postman.setEnvironmentVariable(\"username\", jsonData.username);\r",
+							"postman.setEnvironmentVariable(\"email\", jsonData.email);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\":\"abc\",\r\n\"password\":\"abc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\":\"abc\",\r\n\"password\":\"abc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "metrics",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNkZWZnaCIsImlhdCI6MTYwMTY5NTI2MywiZXhwIjoxNjAxNzgxNjYzfQ.Uj66TIjsJQi5N1MXobIzUr8sH1G3TZNBy74ZFQ5cglUh4YswH7Hz5vzqRxXGmQ-ri9YCtMNkDJ91nMcHmeDXtw",
+						"disabled": true
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://localhost:5001",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/actuator/health/custom",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"actuator",
+						"health",
+						"custom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update password",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenType}} {{accessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:5001",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"foo@bar.buzz\",\r\n    \"password\": \"abcd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update role",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{tokenType}} {{accessToken}}"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://localhost:5001",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"test\",\r\n    \"newRole\": \"ROLE_USER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/role",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get me",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{tokenType}} {{accessToken}}"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://localhost:5001",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"abc\",\r\n    \"directPath\": \"A:\\\\test\",\r\n    \"searchCategories\": [\r\n        \"US_DATA\"\r\n    ],\r\n    \"pstDateRange\": [\r\n        {\r\n            \"from\": \"08/21/2020\",\r\n            \"to\": \"09/21/2020\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{tokenType}} {{accessToken}}"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://localhost:5001",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"abc\",\r\n    \"directPath\": \"A:\\\\test\",\r\n    \"searchCategories\": [\r\n        \"US_DATA\"\r\n    ],\r\n    \"pstDateRange\": [\r\n        {\r\n            \"from\": \"08/21/2020\",\r\n            \"to\": \"09/21/2020\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
