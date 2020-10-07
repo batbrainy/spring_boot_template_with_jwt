@@ -33,4 +33,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		String bodyOfResponse = ex.getMessage();
 		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
+	
+	@ExceptionHandler(value = { ForbiddenException.class })
+	protected ResponseEntity<?> handleForbiddenError(RuntimeException ex, WebRequest request) {
+		log.error(ex.getMessage(), ex);
+		String bodyOfResponse = ex.getMessage();
+		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
+	}
 }
