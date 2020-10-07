@@ -1,0 +1,99 @@
+# Spring Boot configuration
+send-grid:
+   key: "YOUR_KEY"
+   
+
+concurrency:
+  job: 200
+  #multiply above by 3 at least (or more)
+  dirProcessStepChunk: 5
+  executorConcurrencyLimit: 100
+  flow: 100
+  retries: 100
+  pstProcessConcurrency: 100
+  
+email:
+     from: no-reply-finder-service@cyberscout.com
+myapp:
+  cors-allow-ips:
+     - http://localhost:5001
+     - http://localhost:5000
+     - http://127.0.0.1:5000
+     - http://127.0.0.1:5001
+     - http://44.224.199.100:5000
+     - http://localhost
+     - http://127.0.0.1
+  job-status-url: "http://44.224.199.100:3000/job/status/"
+  job-results-url: "http://44.224.199.100:3000/job/status/"
+  
+  jwt:
+    secret: topSecret
+    expirationMs: 86400000
+  extsToIgnore:
+     - zip
+     - 7z
+     - gz
+     - tar
+
+management.endpoints.web.exposure.include: 
+   - health
+   - metrics
+management.endpoint.health.group.custom:
+   include: diskSpace,db
+   show-components: always
+   show-details: always
+   status.http-mapping.up: 207
+   
+
+spring.batch.initialize-schema: always
+spring:
+  h2.console.enabled: true
+  datasource:
+     url: jdbc:h2:file:a:\myappdb;
+     driverClassName: org.h2.Driver
+     username: sa
+     password: sa
+
+  mvc.throw-exception-if-no-handler-found: true
+  jpa:
+    show-sql: false
+    open-in-view: false
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  batch:
+    job.enabled: false
+    database.incrementer.class: org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer
+  servlet.multipart.enabled: true
+  servlet.multipart.file-size-threshold: 2KB
+  servlet.multipart.max-file-size: 200GB
+  servlet.multipart.max-request-size: 215GB
+  
+  profiles:
+    active: development
+  # Security configuration
+  security:
+    user:
+      name: user
+      password: user
+
+# Logger configuration
+logging.file.path: logs
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level %logger : %msg%n"
+  level:
+    root: INFO
+    org.apache: WARN
+    org.apache.pdfbox: ERROR
+    org.apache.fontbox: ERROR
+    org.springframework: INFO
+    com.creativerippling: DEBUG
+    org.hibernate: INFO
+# Server configuration
+server:
+  port: 5001 #set your port
